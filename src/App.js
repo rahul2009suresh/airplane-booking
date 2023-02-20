@@ -1,68 +1,51 @@
 import React, { useState } from 'react';
-import FlightResults from './FlightResults';
 
 function App() {
-  const [fromCity, setFromCity] = useState('');
-  const [toCity, setToCity] = useState('');
-  const [departureDate, setDepartureDate] = useState('');
-  const [returnDate, setReturnDate] = useState('');
-  const [adults, setAdults] = useState(0);
+  const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
-  const [flightResults, setFlightResults] = useState(null);
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
+  const [fromLocation, setFromLocation] = useState('');
+  const [toLocation, setToLocation] = useState('');
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    // Here you can fetch the data from a backend API and update the flightResults state
-    // For demonstration purposes, let's just set some sample data
-    const sampleData = [
-      {
-        airline: 'Rahul Flight Services',
-        flightNumber: 'RF123',
-        departureTime: '8:00 AM',
-        arrivalTime: '10:30 AM',
-        price: 250
-      },
-      {
-        airline: 'Rahul Flight Services',
-        flightNumber: 'RF456',
-        departureTime: '1:00 PM',
-        arrivalTime: '3:30 PM',
-        price: 350
-      }
-    ];
-
-    setFlightResults(sampleData);
+  const handleSearch = () => {
+    // Perform search based on user inputs
   };
 
   return (
     <div className="App">
       <h1>Rahul Flight Services</h1>
-      <form onSubmit={handleFormSubmit}>
-        <label>From:</label>
-        <input type="text" value={fromCity} onChange={(e) => setFromCity(e.target.value)} required />
-
-        <label>To:</label>
-        <input type="text" value={toCity} onChange={(e) => setToCity(e.target.value)} required />
-
-        <label>Departure Date:</label>
-        <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} required />
-
-        <label>Return Date:</label>
-        <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} />
-
-        <label>Adults:</label>
-        <input type="number" value={adults} onChange={(e) => setAdults(e.target.value)} required />
-
-        <label>Children:</label>
-        <input type="number" value={children} onChange={(e) => setChildren(e.target.value)} />
-
-        <button type="submit">Search Flights</button>
-      </form>
-
-      {flightResults && <FlightResults results={flightResults} />}
+      <div className="search-form">
+        <label>
+          Number of Adults:
+          <input type="number" value={adults} onChange={(e) => setAdults(e.target.value)} />
+        </label>
+        <label>
+          Number of Children:
+          <input type="number" value={children} onChange={(e) => setChildren(e.target.value)} />
+        </label>
+        <label>
+          From:
+          <input type="text" value={fromLocation} onChange={(e) => setFromLocation(e.target.value)} />
+        </label>
+        <label>
+          To:
+          <input type="text" value={toLocation} onChange={(e) => setToLocation(e.target.value)} />
+        </label>
+        <label>
+          From Date:
+          <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
+        </label>
+        <label>
+          To Date:
+          <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
+        </label>
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      {/* Display search results here */}
     </div>
   );
 }
 
 export default App;
+
