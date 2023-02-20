@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 function App() {
   const [adults, setAdults] = useState(1);
@@ -7,10 +8,34 @@ function App() {
   const [toDate, setToDate] = useState('');
   const [fromLocation, setFromLocation] = useState('');
   const [toLocation, setToLocation] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = () => {
-    // Perform search based on user inputs
+    const results = generateSearchResults(adults, children, fromDate, toDate, fromLocation, toLocation);
+    setSearchResults(results);
   };
+
+  const generateSearchResults = (numAdults, numChildren, fromDate, toDate, fromLocation, toLocation) => {
+    // Generate random search results based on user input
+    const airlines = ["Delta", "United", "American", "Southwest", "Alaska"];
+    const results = [];
+
+    for (let i = 0; i < 5; i++) {
+      const airline = airlines[i];
+      const numSeats = Math.floor(Math.random() * (numAdults + numChildren)) + 1;
+      const pricePerSeat = Math.floor(Math.random() * 300) + 100;
+      const totalPrice = numSeats * pricePerSeat;
+
+      results.push({
+        airline: airline,
+        numSeats: numSeats,
+        pricePerSeat: pricePerSeat,
+        totalPrice: totalPrice
+      });
+    }
+
+    return results;
+  }
 
   return (
     <div className="App">
@@ -42,10 +67,35 @@ function App() {
         </label>
         <button onClick={handleSearch}>Search</button>
       </div>
-      {/* Display search results here */}
+      {searchResults.length > 0 &&
+        <div className="search-results">
+          <h2>Search Results:</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Airline</th>
+                <th>Number of Seats</th>
+                <th>Price per Seat</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchResults.map((result, index) => (
+                <tr key={index}>
+                  <td>{result.airline}</td>
+                  <td>{result.numSeats}</td>
+                  <td>{result.pricePerSeat}</td>
+                  <td>{result.totalPrice}</td>
+                </tr>
+              ))}
+            </tbody>
+            </table>
+        </div>
+      }
     </div>
   );
 }
 
 export default App;
+
 
