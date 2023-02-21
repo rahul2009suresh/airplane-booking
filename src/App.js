@@ -38,64 +38,65 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>Rahul Flight Services</h1>
+    <div className="App" style={{backgroundColor: "#0D264F"}}>
+      <h1 style={{color: "#FFD900"}}>Rahul Flight Services</h1>
       <div className="search-form">
-        <label>
-          Number of Adults:
-          <input type="number" value={adults} onChange={(e) => setAdults(e.target.value)} />
-        </label>
-        <label>
-          Number of Children:
-          <input type="number" value={children} onChange={(e) => setChildren(e.target.value)} />
-        </label>
-        <label>
-          From:
-          <input type="text" value={fromLocation} onChange={(e) => setFromLocation(e.target.value)} />
-        </label>
-        <label>
-          To:
-          <input type="text" value={toLocation} onChange={(e) => setToLocation(e.target.value)} />
-        </label>
-        <label>
-          From Date:
-          <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
-        </label>
-        <label>
-          To Date:
-          <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
-        </label>
-        <button onClick={handleSearch}>Search</button>
-      </div>
-      {searchResults.length > 0 &&
-        <div className="search-results">
-          <h2>Search Results:</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Airline</th>
-                <th>Number of Seats</th>
-                <th>Price per Seat</th>
-                <th>Total Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {searchResults.map((result, index) => (
-                <tr key={index}>
-                  <td>{result.airline}</td>
-                  <td>{result.numSeats}</td>
-                  <td>{result.pricePerSeat}</td>
-                  <td>{result.totalPrice}</td>
-                </tr>
-              ))}
-            </tbody>
-            </table>
+        <div className="input-group">
+          <label className="label" style={{color: "#FFD900"}}>
+            Number of Adults:
+            <input className="input" type="number" value={adults} onChange={(e) => setAdults(e.target.value)} />
+          </label>
+          <label className="label" style={{color: "#FFD900"}}>
+            Number of Children:
+            <input className="input" type="number" value={children} onChange={(e) => setChildren(e.target.value)} />
+          </label>
         </div>
-      }
-    </div>
-  );
+        <div className="input-group">
+          <label className="label" style={{color: "#FFD900"}}>
+            From:
+            <input className="input" type="text" value={fromLocation} onChange={(e) => setFromLocation(e.target.value)} />
+          </label>
+          <label className="label" style={{color: "#FFD900"}}>
+            To:
+            <input className="input" type="text" value={toLocation} onChange={(e) => setToLocation(e.target.value)} />
+          </label>
+        </div>
+        <div className="input-group">
+          <label className="label" style={{color: "#FFD900"}}>
+            From Date:
+            <input className="input" type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
+          </label>
+          <label className="label" style={{color: "#FFD900"}}>
+            To Date:
+            <input className="input" type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
+          </label>
+        </div>
+        <button className="button" onClick={handleSearch}>Search</button>
+      </div>
+      {searchResults.length > 0 && (
+      <div className="search-results">
+        <h2>Search Results:</h2>
+        <div className="search-result-cards">
+          {searchResults.map((result, index) => (
+            <div className="search-result-card" key={index}>
+              <div className="card-header">
+                <h3>{result.airline}</h3>
+              </div>
+              <div className="card-body">
+                <p>Number of Seats: {result.numSeats}</p>
+                <p>Price per Seat: ${result.pricePerSeat}</p>
+                <p>Total Price: ${result.totalPrice}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+);
 }
 
 export default App;
+
 
 
