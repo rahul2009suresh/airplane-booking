@@ -25,12 +25,16 @@ function App() {
       const numSeats = Math.floor(Math.random() * (numAdults + numChildren)) + 1;
       const pricePerSeat = Math.floor(Math.random() * 300) + 100;
       const totalPrice = numSeats * pricePerSeat;
+      const departureTime = Math.floor(Math.random() * 24);
+      const arrivalTime = Math.floor(Math.random() * 24);
 
       results.push({
         airline: airline,
         numSeats: numSeats,
         pricePerSeat: pricePerSeat,
-        totalPrice: totalPrice
+        totalPrice: totalPrice,
+        departureTime: departureTime,
+        arrivalTime: arrivalTime
       });
     }
 
@@ -38,65 +42,63 @@ function App() {
   }
 
   return (
-    <div className="App" style={{backgroundColor: "#0D264F"}}>
-      <h1 style={{color: "#FFD900"}}>Rahul Flight Services</h1>
+    <div className="App" style={{backgroundColor: "#4D648D"}}>
+      <h1 style={{color: "#FFD700"}}>Rahul Flight Services</h1>
       <div className="search-form">
         <div className="input-group">
-          <label className="label" style={{color: "#FFD900"}}>
+          <label className="label" style={{color: "#FFD700"}}>
             Number of Adults:
             <input className="input" type="number" value={adults} onChange={(e) => setAdults(e.target.value)} />
           </label>
-          <label className="label" style={{color: "#FFD900"}}>
+          <label className="label" style={{color: "#FFD700"}}>
             Number of Children:
             <input className="input" type="number" value={children} onChange={(e) => setChildren(e.target.value)} />
           </label>
         </div>
         <div className="input-group">
-          <label className="label" style={{color: "#FFD900"}}>
+          <label className="label" style={{color: "#FFD700"}}>
             From:
             <input className="input" type="text" value={fromLocation} onChange={(e) => setFromLocation(e.target.value)} />
           </label>
-          <label className="label" style={{color: "#FFD900"}}>
+          <label className="label" style={{color: "#FFD700"}}>
             To:
             <input className="input" type="text" value={toLocation} onChange={(e) => setToLocation(e.target.value)} />
           </label>
         </div>
         <div className="input-group">
-          <label className="label" style={{color: "#FFD900"}}>
+          <label className="label" style={{color: "#FFD700"}}>
             From Date:
             <input className="input" type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
           </label>
-          <label className="label" style={{color: "#FFD900"}}>
+          <label className="label" style={{color: "#FFD700"}}>
             To Date:
             <input className="input" type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
-          </label>
-        </div>
-        <button className="button" onClick={handleSearch}>Search</button>
-      </div>
-      {searchResults.length > 0 && (
-      <div className="search-results">
-        <h2>Search Results:</h2>
-        <div className="search-result-cards">
-          {searchResults.map((result, index) => (
-            <div className="search-result-card" key={index}>
-              <div className="card-header">
-                <h3>{result.airline}</h3>
-              </div>
-              <div className="card-body">
-                <p>Number of Seats: {result.numSeats}</p>
-                <p>Price per Seat: ${result.pricePerSeat}</p>
-                <p>Total Price: ${result.totalPrice}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )}
+      </label>
+    </div>
+    <button className="button" onClick={handleSearch}>Search</button>
   </div>
+  {searchResults.length > 0 && (
+    <div className="search-results" style={{ backgroundColor: "white", padding: "20px", marginTop: "20px" }}>
+      <h2 style={{ color: "black" }}>Search Results:</h2>
+      <div className="search-result-cards" style={{ display: "flex", flexDirection: "row", justifyContent: "center", flexWrap: "wrap" }}>
+        {searchResults.map((result, index) => (
+          <div className="search-result-card" key={index} style={{ border: "1px solid black", borderRadius: "5px", margin: "10px", padding: "10px", minWidth: "250px" }}>
+            <div className="card-header">
+              <h3>{result.airline}</h3>
+              <p>{new Date().toLocaleString()}</p>
+            </div>
+            <div className="card-body">
+              <p>Number of Seats: {result.numSeats}</p>
+              <p>Price per Seat: ${result.pricePerSeat}</p>
+              <p>Total Price: ${result.totalPrice}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
 );
 }
 
 export default App;
-
-
-
