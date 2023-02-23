@@ -33,7 +33,7 @@ function App() {
   };
 
   return (
-    <div style={{ backgroundColor: '#2596be', color: '#F0ea03', minHeight: '100vh', padding: '20px' }}>
+    <div style={{ backgroundColor: '#2596be', color: '#000000', minHeight: '100vh', padding: '20px' }}>
       <h1 style={{ textAlign: 'center' }}>Rahul Flight Services</h1>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ width: '50%', minWidth: '500px' }}>
