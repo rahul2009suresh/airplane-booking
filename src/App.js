@@ -76,7 +76,7 @@ function App() {
             </div>
           )}
           {searchResults.map((result, index) => (
-            <div key={index} style={{ backgroundColor: '#F0ea03', padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 0 10px rgba(0,0,0,0.2)', borderRadius: '5px' }}>
+            <div key={index} style={{ backgroundColor: '#2596be', padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 0 10px rgba(0,0,0,0.2)', borderRadius: '5px' }}>
               <div>{result.name}</div>
               <div>{result.fromTime}</div>
               <div>{result.toTime}</div>
