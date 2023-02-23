@@ -1,83 +1,92 @@
 import React, { useState } from 'react';
-import './App.css';
 
 function App() {
-  const [adults, setAdults] = useState(1);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [date, setDate] = useState('');
+  const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
-  const [fromLocation, setFromLocation] = useState('');
-  const [toLocation, setToLocation] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = () => {
-    const results = generateSearchResults(adults, children, fromDate, toDate, fromLocation, toLocation);
-    setSearchResults(results);
+    // Perform search with API call and update searchResults state
+    setSearchResults([
+      {
+        name: 'Rahul Airlines',
+        fromTime: '10:00 AM',
+        toTime: '2:00 PM',
+        cost: '$200'
+      },
+      {
+        name: 'Rahul Express',
+        fromTime: '11:00 AM',
+        toTime: '3:00 PM',
+        cost: '$180'
+      },
+      {
+        name: 'Rahul Connect',
+        fromTime: '12:00 PM',
+        toTime: '4:00 PM',
+        cost: '$220'
+      }
+    ]);
   };
 
-  const generateSearchResults = (numAdults, numChildren, fromDate, toDate, fromLocation, toLocation) => {
-    // Generate random search results based on user input
-    const airlines = ["Delta", "United", "American", "Southwest", "Alaska"];
-    const results = [];
-
-    for (let i = 0; i < 5; i++) {
-      const airline = airlines[i];
-      const numSeats = Math.floor(Math.random() * (numAdults + numChildren)) + 1;
-      const pricePerSeat = Math.floor(Math.random() * 300) + 100;
-      const totalPrice = numSeats * pricePerSeat;
-      const fromTime = Math.floor(Math.random() * 24);
-      const toTime = Math.floor(Math.random() * 24);
-
-      results.push({
-        airline: airline,
-        numSeats: numSeats,
-        pricePerSeat: pricePerSeat,
-        totalPrice: totalPrice,
-        fromTime: fromTime,
-        toTime: toTime
-      });
-    }
-
-    return results;
-  }
-
   return (
-    <div className="App" style={{backgroundColor: "#3b4e75"}}>
-      <h1 style={{color: "#FFD700"}}>Rahul Flight Services</h1>
-      <div className="search-form" style={{display: "flex", flexDirection: "column", gap: "20px"}}>
-        <div className="input-group">
-          <label className="label" style={{color: "#FFD700"}}>
-            Number of Adults:
-            <input className="input" type="number" value={adults} onChange={(e) => setAdults(e.target.value)} />
-          </label>
-          <label className="label" style={{color: "#FFD700"}}>
-            Number of Children:
-            <input className="input" type="number" value={children} onChange={(e) => setChildren(e.target.value)} />
-          </label>
+    <div style={{ backgroundColor: '#2596be', color: '#F0ea03', minHeight: '100vh', padding: '20px' }}>
+      <h1 style={{ textAlign: 'center' }}>Rahul Flight Services</h1>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '50%', minWidth: '500px' }}>
+          <h2>Book Your Flight</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div>
+              <label htmlFor="from">From:</label>
+              <input type="text" id="from" value={from} onChange={(e) => setFrom(e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="to">To:</label>
+              <input type="text" id="to" value={to} onChange={(e) => setTo(e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="date">Date:</label>
+              <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="adults">Adults:</label>
+              <input type="number" id="adults" value={adults} onChange={(e) => setAdults(Math.max(0, parseInt(e.target.value)))} />
+            </div>
+            <div>
+              <label htmlFor="children">Children:</label>
+              <input type="number" id="children" value={children} onChange={(e) => setChildren(Math.max(0, parseInt(e.target.value)))} />
+            </div>
+            <div>
+              <button onClick={handleSearch}>Search</button>
+            </div>
+          </div>
         </div>
-        <div className="input-group">
-          <label className="label" style={{color: "#FFD700"}}>
-            From:
-            <input className="input" type="text" value={fromLocation} onChange={(e) => setFromLocation(e.target.value)} />
-          </label>
-          <label className="label" style={{color: "#FFD700"}}>
-            To:
-            <input className="input" type="text" value={toLocation} onChange={(e) => setToLocation(e.target.value)} />
-          </label>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <div style={{ width: '50%', minWidth: '500px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {searchResults.length > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#F0ea03', padding: '10px' }}>
+              <div style={{ fontWeight: 'bold' }}>Flight Name</div>
+              <div style={{ fontWeight: 'bold' }}>Departure Time</div>
+              <div style={{ fontWeight: 'bold' }}>Arrival Time</div>
+              <div style={{ fontWeight: 'bold' }}>Cost</div>
+            </div>
+          )}
+          {searchResults.map((result, index) => (
+            <div key={index} style={{ backgroundColor: '#F0ea03', padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 0 10px rgba(0,0,0,0.2)', borderRadius: '5px' }}>
+              <div>{result.name}</div>
+              <div>{result.fromTime}</div>
+              <div>{result.toTime}</div>
+              <div>{result.cost}</div>
+            </div>
+          ))}
         </div>
-        <div className="input-group">
-  <label className="label" style={{color: "#FFD700"}}>
-    From Date:
-    <input className="input" type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
-  </label>
-  <label className="label" style={{color: "#FFD700"}}>
-    To Date:
-    <input className="input" type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
-  </label>
-</div>
-</div>
-</div>
-  )
+      </div>
+    </div>
+  );
 }
 
 export default App;
